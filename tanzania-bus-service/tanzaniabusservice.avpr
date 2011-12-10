@@ -18,6 +18,11 @@
          "response": ["Company", "null"]
      },
 
+     "loadCompanySlow": {
+         "request": [{"name": "companyId", "type": "long"}],
+         "response": ["Company", "null"]
+     },
+
      "listCompaniesAboveRating": {
          "request": [{"name": "rating", "type": "float"}],
          "response": {"type": "array", "items": "Company"}

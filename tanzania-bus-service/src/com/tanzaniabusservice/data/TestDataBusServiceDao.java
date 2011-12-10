@@ -25,7 +25,7 @@ public class TestDataBusServiceDao implements BusServiceDao {
     public List<Company> listCompaniesAboveRating(float rating) {
         List<Company> results = new ArrayList<Company>();
         for (Company company : fakeDb.values()) {
-            if (company.rating > rating) {
+            if (company.getRating() > rating) {
                 results.add(company);
             }
         }
@@ -34,13 +34,7 @@ public class TestDataBusServiceDao implements BusServiceDao {
     }
 
     private Company makeCompany(String name, long mills, long id, float rating) {
-        Company company = new Company();
-        company.establishedDateMills = mills;
-        company.id = id;
-        company.name = name;
-        company.rating = rating;
-
-        return company;
+        return Company.newBuilder().setEstablishedDateMills(mills).setId(id).setName(name).setRating(rating).build();
     }
 
 }

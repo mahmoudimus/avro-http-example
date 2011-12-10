@@ -1,5 +1,5 @@
 <ivy-module version="2.0">
-    <info organisation="com.tanzaniabusservice" module="tanzaniabusservice" revision="1.0.0"/>
+    <info organisation="com.tanzaniabusservice" module="tanzaniabusservice" revision="1.1.0"/>
 
     <configurations>
         <conf name="runtime" description="Server"/>
@@ -13,12 +13,11 @@
 
 
     <dependencies>
-        <dependency org="org.apache.avro" name="avro" rev="1.5.1" conf="runtime->default"/>
-        <dependency org="org.apache.avro" name="avro-compiler" rev="1.5.1" conf="compile->default"/>
-        <dependency org="org.apache.avro" name="avro-tools" rev="1.5.1" conf="compile->default"/>
-        <dependency org="org.apache.avro" name="avro-ipc" rev="1.5.1" conf="runtime->default"/>
+        <dependency org="org.apache.avro" name="avro-compiler" rev="1.6.1" conf="compile->default"/>
+        <dependency org="org.apache.avro" name="avro-tools" rev="1.6.1" conf="compile->default"/>
+        <dependency org="org.apache.avro" name="avro-ipc" rev="1.6.1" conf="runtime->default"/>
 
-        <dependency org="org.springframework" name="spring-web" rev="3.0.5.RELEASE" conf="runtime->default"/>
+        <dependency org="org.springframework" name="spring-web" rev="3.0.6.RELEASE" conf="runtime->default"/>
         <dependency org="servletapi" name="servlet-api" rev="2.4" conf="compile->default"/>
 
         <dependency org="log4j" name="log4j" rev="1.2.9" conf="runtime->default"/>

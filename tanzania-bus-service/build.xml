@@ -20,17 +20,35 @@
     <property name="war" value="tanzaniabusservice.war"/>
     <property name="warFile" value="${dist}/${war}"/>
 
-    <property name="ivy.version" value="2.1.0-rc2"/>
+    <property name="ivy.version" value="2.2.0"/>
     <property name="ivy.url" value="http://repo2.maven.org/maven2/org/apache/ivy/ivy"/>
     <property name="ivy.home" value="${user.home}/.ant"/>
     <property name="ivy.lib" value="${build}/lib"/>
 
-    <target name="resolve" description="fetch deps">
+    <target name="fetch-ivy" unless="offline" description="Install Ivy if it doesn't already exist">
+        <mkdir dir="${ivy.home}"/>
+        <get
+                src="http://repo2.maven.org/maven2/org/apache/ivy/ivy/${ivy.version}/ivy-${ivy.version}.jar"
+                dest="${ivy.home}" usetimestamp="true"/>
+    </target>
+
+    <target name="init-ivy" depends="fetch-ivy" unless="ivy-initialized">
+        <path id="ivy.lib.path">
+            <fileset dir="${ivy.home}" includes="*.jar"/>
+        </path>
+        <taskdef resource="org/apache/ivy/ant/antlib.xml"
+                 uri="antlib:org.apache.ivy.ant" classpathref="ivy.lib.path"/>
+        <property name="ivy-initialized" value="yes"/>
+    </target>
+
+
+    <target name="resolve" description="fetch deps" depends="init-ivy">
         <ivy:retrieve pattern="${lib}/[artifact]-[revision].[ext]" conf="runtime"/>
         <ivy:retrieve pattern="${clib}/[artifact]-[revision].[ext]" conf="compile"/>
     </target>
 
     <target name="rebuild-avro-gen" depends="clean-avro-gen" description="Rebuild avro classes">
+
         <taskdef name="protocol" classname="org.apache.avro.compiler.specific.ProtocolTask">
             <classpath refid="classpath"/>
         </taskdef>
@@ -39,7 +57,7 @@
             <classpath refid="classpath"/>
         </taskdef>
 
-        <protocol destdir="${avro-gen}">
+        <protocol destdir="${avro-gen}" stringtype="String">
             <fileset dir="${basedir}">
                 <include name="**/*.avpr"/>
             </fileset>

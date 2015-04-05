@@ -1,0 +1,1 @@
+This project is intended to provide an example for others to look at when trying to get started using Apache Avro.
